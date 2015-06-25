@@ -2,32 +2,14 @@
 <html>
 <head>
 <title></title>
+<script type="text/javascript" src="paintweb/source/paintweb.js"></script>
+<script type="text/javascript" src="paintweb/source/includes/lib.js"></script>
 </head>
 <body>
-	<img id="editableImage" src="sample.jpg">
-
-	<p>
-		<button id="buttonEditImage">Edit image!</button>
-	</p>
-
-	<div id="PaintWebTarget"></div>
-
-	<script type="text/javascript" src="paintweb/source/paintweb.js"></script>
-	<script type="text/javascript" src="paintweb/source/includes/lib.js"></script>
-<!-- 	<script type="text/javascript" src="paintweb/build/paintweb.js"></script>	 -->
 </body>
-
 <script type="text/javascript">
 (function () {
-	function pwStart () {
-		document.body.insertBefore(loadPanel, btn.parentNode);
-		pw.init(pwInit);
-	};
-
-	// Function called when the PaintWeb application fires the "appInit" event.
 	function pwInit (ev) {
-		document.body.removeChild(loadPanel);
-
 		if (ev.state === PaintWeb.INIT_ERROR) {
 			alert('Demo: PaintWeb initialization failed.');
 			return;
@@ -36,29 +18,35 @@
 			alert('Demo: Unrecognized PaintWeb initialization state ' + ev.state);
 			return;
 		}
-
-		img.style.display = 'none';
-		btn.style.display = 'none';
 	};
+	
+	function getParameter(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
 
-	var img		= document.getElementById('editableImage');
-	var loadPanel	= document.createElement('p');
+	var imageUrl = getParameter("url");
+	if (imageUrl.length < 1) {
+		alert("請指定圖檔路徑");
+		return;
+	}
+	
 	var pw = new PaintWeb(); // Create a PaintWeb instance.
-
-	pw.config.guiPlaceholder = document.getElementById('PaintWebTarget');
-	pw.config.imageLoad	= img;
+	pw.config.guiPlaceholder = document.body;
 	pw.config.configFile = 'config-example.json';
-	loadPanel.appendChild(document.createTextNode('Loading, please wait...'));
+	
 
-	var btn	= document.getElementById('buttonEditImage');
-	if (btn.addEventListener) {
-		btn.addEventListener('click', pwStart, false);
-	} else if (btn.attachEvent) {
-		btn.attachEvent('onclick', pwStart);
-	} else {
-		btn.onclick = pwStart;
+	var image = new Image();
+	image.src = imageUrl;
+	image.onload = function() {
+		pw.config.imageLoad	= image;
+		pw.init(pwInit);
+	};
+	image.onerror = function(event) {
+		alert("指定圖檔 " + imageUrl + " 不存在");
 	}
 })();
 </script>
 </html>
-

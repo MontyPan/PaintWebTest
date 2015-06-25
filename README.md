@@ -43,7 +43,7 @@ source 版就剛好相反，檔案又多又長，但是比較能 trace，直接�
 
 使用 source 版的方式
 ---------------------
-參考 8b0479 ，這裡只提幾個重點
+參考 d12de2 ，這裡只提幾個重點
 
 * host page 除了 `paintweb.js` 之外也要掛 `/includes/lib.js`。
 * 不必要的東西：
