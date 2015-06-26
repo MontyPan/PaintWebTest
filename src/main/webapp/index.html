@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
 <title></title>
 <script type="text/javascript" src="paintweb/source/paintweb.js"></script>
@@ -8,45 +8,71 @@
 <body>
 </body>
 <script type="text/javascript">
+// ==== 獨立的 JS utility 區 ==== //
+function queryStringParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+</script>
+<script type="text/javascript">
+//FIXME Firefox 沒辦法正常運作... 但是 paint.html 可以... 幹...
+
 (function () {
-	function pwInit (ev) {
+	var pw = new PaintWeb(); // Create a PaintWeb instance.
+	
+	function systemStart() {
+		pw.config.guiPlaceholder = document.body;
+		pw.config.configFile = 'config-example.json';		
+		pw.config.imageLoad	= image;
+		pw.init(initHandler);
+	}
+	
+	function afterInit() {
+		pw.events.add('imageSave', saveHandler);
+	}
+	
+	function saveHandler(ev) {
+		ev.preventDefault();
+		pwlib.xhrLoad("upload.jsp", foo, "POST", encodeURIComponent(ev.dataURL), null);
+	}
+	
+	function foo(xhr) {
+		if (!xhr || xhr.readyState !== 4) {	//重複傳四次的意味？
+			console.log(xhr.readyState);
+			return;
+		}
+		console.log(xhr);
+	}
+	
+	function initHandler (ev) {
 		if (ev.state === PaintWeb.INIT_ERROR) {
 			alert('Demo: PaintWeb initialization failed.');
 			return;
 		} else if (ev.state === PaintWeb.INIT_DONE) {
+			afterInit();
 		} else {
 			alert('Demo: Unrecognized PaintWeb initialization state ' + ev.state);
 			return;
 		}
 	};
 	
-	function getParameter(name) {
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	        results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	}
-
-	var imageUrl = getParameter("url");
+	var imageUrl = queryStringParameter("url");
 	if (imageUrl.length < 1) {
 		alert("請指定圖檔路徑");
 		return;
 	}
 	
-	var pw = new PaintWeb(); // Create a PaintWeb instance.
-	pw.config.guiPlaceholder = document.body;
-	pw.config.configFile = 'config-example.json';
+	//TODO 載入中的畫面
 	
-
 	var image = new Image();
-	image.src = imageUrl;
-	image.onload = function() {
-		pw.config.imageLoad	= image;
-		pw.init(pwInit);
-	};
 	image.onerror = function(event) {
 		alert("指定圖檔 " + imageUrl + " 不存在");
 	}
+	//必須要圖檔 load 完之後才能開始坐 pw.init()，不然 pw 會無法正常顯示圖檔
+	image.onload = systemStart();
+	image.src = imageUrl;
 })();
 </script>
 </html>
