@@ -57,5 +57,30 @@ source 版就剛好相反，檔案又多又長，但是比較能 trace，直接�
 只能說那些圖檔應該已經變成 base64 塞在某個 js 裡頭了...... [遠目]
 
 
+layout.xhtml
+------------
+* `data-pwCommand`：對應 command
+* `data-pwTool`：對應 tool
+	* 會去找有同樣值的 `data-pwTab`，變成選取 tool 時會多出來的 tab。
+	* 不過有一些 tool 的 tab 是怎麼長出來的還是個謎... 
+		例如各個 tool 的 Shadow、`Text` 的 `Border`。
+		`script.js` 裡頭似乎有一點線索，但是暫時兜不起來...... Orz
+
+
 貼士跟貼土（？）
 ================
+
+拔掉既有功能
+------------
+
+假設要拔掉的是 `foo` 這個 command（例如 `imageClear`）：
+
+1. `layout.xhtml`：`data-pwTab="main'`→`<ul id="tools">` 
+	把 `data-pwCommand="foo"` 的 li 給刪掉
+
+假設要刪除的是 `foo` 這個 tool（例如 `selection`）：
+
+1. `config.json`：找到 `tools`，刪除 `foo`
+1. `layout.xhtml`：`data-pwTab="main'`→`<ul id="tools">` 
+	把 `data-pwTool="foo"` 的 li 給刪掉。
+	後面還有 `data-pwTab="foo"` 的 div 可以不理他 XD
