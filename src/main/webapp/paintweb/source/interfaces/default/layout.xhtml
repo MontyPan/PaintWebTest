@@ -17,6 +17,15 @@
 			.paintweb_id. In this case the class name will be .paintweb_tools. -->
 			<ul id="tools">
 
+				<li data-pwCommand="imageSave">Save image</li>
+				<!-- All elements with data-pwTool will have a class name like 
+				.paintweb_tool_toolID and a generic class name .paintweb_tool. In this 
+				case the class names will be .paintweb_tool_insertimg and 
+				.paintweb_tool.  -->
+				<li data-pwTool="insertimg">Insert image</li>
+
+				<li class="paintweb_toolSeparator">&#160;</li>
+
 				<!-- All elements with data-pwCommand will have a class name like 
 				.paintweb_cmd_commandID and a generic class name .paintweb_command. In 
 				this case the class names will be .paintweb_cmd_historyUndo and 
@@ -26,54 +35,23 @@
 
 				<li class="paintweb_toolSeparator">&#160;</li>
 
-				<!-- 
-				<li data-pwCommand="imageClear">Clear image</li> 
-				-->
-				<li data-pwCommand="imageSave">Save image</li>
-
-				<!-- All elements with data-pwTool will have a class name like 
-				.paintweb_tool_toolID and a generic class name .paintweb_tool. In this 
-				case the class names will be .paintweb_tool_insertimg and 
-				.paintweb_tool.  -->
-				<li data-pwTool="insertimg">Insert image</li>
-
-				<li class="paintweb_toolSeparator">&#160;</li>
-
-				<!-- 
-				<li data-pwCommand="selectionCut">Cut selection</li>
-				<li data-pwCommand="selectionCopy">Copy selection</li>
-				<li data-pwCommand="clipboardPaste">Clipboard paste</li>
- 				-->
- 				
-				<li class="paintweb_toolSeparator">&#160;</li>
-
+				<li data-pwTool="eraser">Eraser</li>
 				<li data-pwTool="cpicker">Color picker</li>
-				<li data-pwTool="cbucket">Color bucket</li>
 
 				<li class="paintweb_toolsWrap">&#160;</li>
 
-				<!-- 
-				<li data-pwTool="selection">Selection</li>
-				<li data-pwTool="hand">Hand</li>
-				-->
-
-				<li class="paintweb_toolSeparator">&#160;</li>
-
+				<li data-pwTool="line">Line</li>
 				<li data-pwTool="rectangle">Rectangle</li>
 				<li data-pwTool="ellipse">Ellipse</li>
-				<li data-pwTool="line">Line</li>
+
+				<li class="paintweb_toolSeparator">&#160;</li>
 				
-				<!-- 
-				<li data-pwTool="polygon">Polygon</li>
-				<li data-pwTool="bcurve">Bézier curve</li>				
-				-->
 				<li data-pwTool="text">Text</li>
+				
+				<li class="paintweb_toolSeparator">&#160;</li>
+				
 				<li data-pwTool="pencil">Pencil</li>
-
-				<li class="paintweb_toolSeparator">&#160;</li>
-
-				<li data-pwTool="eraser">Eraser</li>
-				<li class="paintweb_toolSeparator">&#160;</li>
+				<li data-pwTool="cbucket">Color bucket</li>
 			</ul>
 
 			<div class="paintweb_strokeFillStyles">
