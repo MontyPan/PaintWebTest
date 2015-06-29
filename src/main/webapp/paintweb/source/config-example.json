@@ -234,7 +234,20 @@
    * Holds the list of drawing tools you want to load.
    * @type Array
    */
-  "tools": ["bcurve", "cbucket", "cpicker", "ellipse", "eraser", "hand", "insertimg", "line", "pencil", "polygon", "rectangle", "selection", "text"],
+  "tools": [
+    //"bcurve", 
+    "cbucket", 
+    "cpicker", 
+    "ellipse", 
+    "eraser", 
+    //"hand", 
+    "insertimg", 
+    "line", 
+    "pencil", 
+    //"polygon", 
+    "rectangle", 
+    //"selection",
+    "text"],
 
   /**
    * Tools folder.
