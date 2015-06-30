@@ -67,6 +67,16 @@ layout.xhtml
 		`script.js` 裡頭似乎有一點線索，但是暫時兜不起來...... Orz
 
 
+初始化流程
+----------
+1. configLoad() 搭配 configReady()：load config 檔
+1. langLoad() 搭配 langReady：load language 檔
+1. guiLoad() 搭配 guiScriptReady：load script.js 檔（註：這邊寫得不是很好）
+	1. pw.gui = new pwlib.gui()
+1. guiMarkupReady()
+	1. pw.gui.init()
+	
+
 貼士跟貼土（？）
 ================
 
@@ -84,3 +94,19 @@ layout.xhtml
 1. `layout.xhtml`：`data-pwTab="main'`→`<ul id="tools">` 
 	把 `data-pwTool="foo"` 的 li 給刪掉。
 	後面還有 `data-pwTab="foo"` 的 div 可以不理他 XD
+	
+
+Firefox 的問題
+--------------
+發現 Firefox 只要重新指定 `config.guiMarkup`，即使給的是改過名字的 layout.xhtml
+（在 build 版如果沒有改名字會使用寫死在 js 當中的值），
+在初始化的時候會炸 `missingCanvasContainer`，
+炸點是 `script.js` 的 `initCanvas()`，
+前一層原因是 `initParseMarkup()` 的時候不知道為什麼 node 都沒有 `data-pwId`...
+
+測試環境：
+
+* Windows 7(64bit)
+* Chrome 43.0.x
+* IE 11
+* Firefox 38.0.5
