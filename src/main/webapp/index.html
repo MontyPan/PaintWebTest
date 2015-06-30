@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 <title></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="paintweb/source/paintweb.js"></script>
 <script type="text/javascript" src="paintweb/source/includes/lib.js"></script>
 </head>
@@ -26,7 +27,11 @@ function queryStringParameter(name) {
 		pw.config.guiPlaceholder = document.body;
 		pw.config.configFile = 'config-example.json';		
 		pw.config.imageLoad	= image;
-		pw.init(initHandler);
+		/*
+		 * 即使已經是在 image 的 onload 裡頭做了，還是有發生 PaintWeb 沒有出現圖的囧況
+		 * 所以用 setTimeout() 延遲 100ms 再真正坐 init()
+		 */
+		setTimeout(function() { pw.init(initHandler); }, 100);
 	}
 	
 	function afterInit() {
