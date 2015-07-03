@@ -96,6 +96,25 @@ layout.xhtml
 	後面還有 `data-pwTab="foo"` 的 div 可以不理他 XD
 	
 
+新增功能
+--------
+
+假設要增加的是 `foo`
+
+1. `/tools` 下增加 `foo.js`（內容細節略）
+1. `config.json`：
+	* `tools` 增加 `foo`
+	* `keys` 增加 foo 對應的快速鍵
+1. `layout.xhtml`：（內容細節略）
+1. `style.css`：（內容細節略）
+1. `lang.json`：
+	* `tabs.main` 增加 `"foo": "tab 的字串"`
+	* `tools` 增加 `"foo": "status bar 的字串"`
+	* `commands`：有 `data-pwCommand` 就要加對應的字串
+	* `status`：`foo.js` 裡頭有作 `gui.statusShow(FOO_WTF)`，這裡就要加對應的資料
+
+
+
 Firefox 的問題
 --------------
 發現 Firefox 只要重新指定 `config.guiMarkup`，即使給的是改過名字的 layout.xhtml

@@ -45,6 +45,7 @@
 
   "tabs": {
     "main": {
+      "arrow": "Arrow",
       "bcurve": "Bézier curve",
       "ellipse": "Ellipse",
       "eraser": "Eraser",
@@ -85,6 +86,7 @@
   },
 
   "tools": {
+  	"arrow": "Arrow",
     "cbucket": "Color bucket",
     "cpicker": "Color picker",
     "bcurve": "Bézier curve",
@@ -113,6 +115,16 @@
     "selectionCut": "Cut selection",
     "selectionDelete": "Delete selection",
     "selectionFill": "Fill the selection"
+    
+    ,
+    "arrow270": "Arrow Up",
+    "arrow0": "Arrow Right",
+    "arrow90": "Arrow Down",
+    "arrow180": "Arrow Left",
+    "arrow315": "Arrow Up-Right",
+    "arrow45": "Arrow Down-Right",
+    "arrow135": "Arrow Down-Left",
+    "arrow225": "Arrow Up-Left"
   },
 
   "inputs": {
@@ -208,6 +220,7 @@
   },
 
   "status": {
+    "arrowActive": "Click and drag to draw an arrow.", 
     "cbucketActive": "Click to start flood filling with the current fill color. Right click to use the stroke color for filling.",
     "cpickerNormal": "Click to change the fill color, or Shift+Click to change the stroke color.",
     "cpicker_fillStyle": "Click to pick the fill color.",
