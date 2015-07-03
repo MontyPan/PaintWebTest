@@ -25,11 +25,11 @@ function queryStringParameter(name) {
 	
 	function systemStart() {
 		pw.config.guiPlaceholder = document.body;
-		pw.config.configFile = 'config-example.json';		
+		pw.config.configFile = 'config.json';		
 		pw.config.imageLoad	= image;
 		/*
 		 * 即使已經是在 image 的 onload 裡頭做了，還是有發生 PaintWeb 沒有出現圖的囧況
-		 * 所以用 setTimeout() 延遲 100ms 再真正坐 init()
+		 * 所以用 setTimeout() 延遲 100ms 再真正做 init()
 		 */
 		setTimeout(function() { pw.init(initHandler); }, 100);
 	}
@@ -40,15 +40,13 @@ function queryStringParameter(name) {
 	
 	function saveHandler(ev) {
 		ev.preventDefault();
-		pwlib.xhrLoad("upload.jsp", foo, "POST", encodeURIComponent(ev.dataURL), null);
+		pwlib.xhrLoad("upload.jsp", saveXHR, "POST", encodeURIComponent(ev.dataURL), null);
 	}
 	
-	function foo(xhr) {
-		if (!xhr || xhr.readyState !== 4) {	//重複傳四次的意味？
-			console.log(xhr.readyState);
+	function saveXHR(xhr) {
+		if (!xhr || xhr.readyState !== 4) {
 			return;
 		}
-		console.log(xhr);
 	}
 	
 	function initHandler (ev) {

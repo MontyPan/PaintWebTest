@@ -235,6 +235,7 @@
    * @type Array
    */
   "tools": [
+  	"arrow",
     //"bcurve", 
     "cbucket", 
     "cpicker", 
@@ -247,7 +248,8 @@
     //"polygon", 
     "rectangle", 
     //"selection",
-    "text"],
+    "text"
+  ],
 
   /**
    * Tools folder.
