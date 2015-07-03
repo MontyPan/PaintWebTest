@@ -234,7 +234,7 @@
    * Holds the list of drawing tools you want to load.
    * @type Array
    */
-  "tools": ["bcurve", "cbucket", "cpicker", "ellipse", "eraser", "hand", "insertimg", "line", "pencil", "polygon", "rectangle", "selection", "text"],
+  "tools": ["arrow", "bcurve", "cbucket", "cpicker", "ellipse", "eraser", "hand", "insertimg", "line", "pencil", "polygon", "rectangle", "selection", "text"],
 
   /**
    * Tools folder.
@@ -639,6 +639,7 @@
     "Control V":    { "command": "clipboardPaste" },
 
     // Use "toolActivate": "id" to activate the tool with the given ID.
+    "A": { "toolActivate": "arrow" },
     "C": { "toolActivate": "cpicker" },
     "E": { "toolActivate": "ellipse" },
     "F": { "toolActivate": "cbucket" },

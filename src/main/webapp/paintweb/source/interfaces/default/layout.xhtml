@@ -64,7 +64,7 @@
 				<li class="paintweb_toolSeparator">&#160;</li>
 
 				<li data-pwTool="eraser">Eraser</li>
-				<li class="paintweb_toolSeparator">&#160;</li>
+				<li data-pwTool="arrow">Arrow</li>
 			</ul>
 
 			<div class="paintweb_strokeFillStyles">
@@ -171,6 +171,34 @@
 			</p>
 		</div>
 
+		<!-- .paintweb_main_arrow -->
+		<div data-pwTab="arrow" data-pwTabHide="true">
+			<p data-pwCommand="arrow270">Up</p>
+			<p data-pwCommand="arrow0">Right</p>
+			<p data-pwCommand="arrow90">Down</p>
+			<p data-pwCommand="arrow180">Left</p>
+
+			<p data-pwCommand="arrow315">Up-Right</p>
+			<p data-pwCommand="arrow45">Down-Right</p>
+			<p data-pwCommand="arrow135">Down-Left</p>
+			<p data-pwCommand="arrow225">Up-Left</p>
+		
+			<p class="paintweb_opt_arrowBodyLength">
+				<label for="arrowBodyLength">Body Length:</label>
+				<input id="arrowBodyLength" type="number" min="0" max="9" value="2" />			
+			</p>
+			
+			<p class="paintweb_opt_arrowHeadWidth">				
+				<label for="arrowHeadWidth">Head Width:</label>
+				<input id="arrowHeadWidth" type="number" min="0" max="9" value="1" />
+			</p>
+						
+			<p class="paintweb_opt_arrowDegree">
+				<label for="arrowDegree">Degree:</label>
+				<input id="arrowDegree" type="number" min="0" max="360" value="0" />
+			</p>
+		</div>
+		
 		<!-- .paintweb_main_text -->
 		<div data-pwTab="text" data-pwTabHide="true">
 			<p class="paintweb_opt_fontFamily">
