@@ -12,7 +12,21 @@ pwlib.tools.arrow = function(app) {
 	var needsRedraw = false;
 	var x0 = 0;
 	var y0 = 0;
-
+	
+	this.activate = function() {
+		for (var i = 0; i < 360; i = i + 45) {
+			var func = this.setDegree(i); 
+			app.commandRegister("arrow" + i, func);
+		}
+	};
+	
+	//closure 不太會用，只 try 出這種寫法  (艸
+	this.setDegree = function(degree) {
+		return function() {
+			gui.inputs.arrowDegree.value = degree;	
+		};
+	};
+	
 	this.deactivate = function() {
 		if (timer) {
 			clearInterval(timer);
@@ -35,9 +49,6 @@ pwlib.tools.arrow = function(app) {
 		}
 		
 		needsRedraw = false;
-
-		//FIXME
-//		gui.statusShow('rectangleMousedown');
 
 		return true;
 	};
@@ -64,8 +75,8 @@ pwlib.tools.arrow = function(app) {
 			endY = Math.max(mouse.y, y0), 
 			w = endX - startX, 
 			h = endY - startY,
-			tx = 0,
-			ty = 0,
+			tx = (endX + startX) / 2,
+			ty = (endY + startY) / 2,
 			points = [];
 		
 		if (!w || !h) {
@@ -74,11 +85,12 @@ pwlib.tools.arrow = function(app) {
 		}
 
 		/*
-		 * 當箭頭朝下時（aka degree = 90），若使用箭頭朝右的座標做旋轉，
+		 * 當箭頭朝下（degree = 90）或是朝上（degree = 270），若使用箭頭朝右的座標做旋轉，
 		 * 會導致增加移動向量的 x 分量，實質上是造成箭頭體積於 y 分量的增加。
-		 * 這不符合人類預期的操作，所以當 degree 在 (45, 135) 區間時，使用另外一個箭頭的座標組。
+		 * 這不符合人類預期的操作，所以當 degree 在 (45, 135) 跟 (225, 315) 區間時，
+		 * 使用另外一個箭頭的座標組。
 		 */
-		if (degree > 45 && degree < 135) {
+		if ((degree > 45 && degree < 135) || (degree > 225 && degree < 315)) {
 			var x2 = h * rx2 / (rx1 + rx2),
 				y2 = w * ry2 / (ry1 + ry2) / 2;
 			points.push([(endX + startX) / 2, endY]);	//A
@@ -88,29 +100,7 @@ pwlib.tools.arrow = function(app) {
 			points.push([startX + y2, startY]);	//C2
 			points.push([startX + y2, startY + x2]);	//B3
 			points.push([startX, startY + x2]);	//B4
-			tx = (endX + startX) / 2;
-			ty = startY + y2;
 			degree = degree - 90;	//修正 rotate 的角度
-		/*
-		 * 這是箭頭朝上（degree = 270）時的狀況，跟箭頭朝下時的道理一樣，
-		 * 只是搞不懂為什麼不能用以箭頭朝下的座標組做 rotate，在 render 的過程圖形會一直往上跳 ＝＝"，
-		 * 所以只好另外再給一組座標。
-		 * 
-		 * 一言以蔽之就是 workaround  [逃]
-		 */
-		} else if (degree > 225 && degree < 315) {
-			var x2 = h * rx2 / (rx1 + rx2),
-				y2 = w * ry2 / (ry1 + ry2) / 2;
-			points.push([(endX + startX) / 2, startY]);	//A
-			points.push([startX, endY - x2]);	//B1
-			points.push([startX + y2, endY - x2]);	//B2
-			points.push([startX + y2, endY]);	//C1
-			points.push([endX - y2, endY]);	//C2
-			points.push([endX - y2, endY - x2]);	//B3
-			points.push([endX, endY - x2]);	//B4
-			tx = (endX + startX) / 2;
-			ty = startY + y2;
-			degree = degree - 270;	//修正 rotate 的角度
 		} else {			
 			var x2 = w * rx2 / (rx1 + rx2),
 				y2 = h * ry2 / (ry1 + ry2) / 2;
@@ -121,8 +111,6 @@ pwlib.tools.arrow = function(app) {
 			points.push([startX, endY - y2]);	//C2
 			points.push([startX + x2, endY - y2]);	//B3
 			points.push([startX + x2, endY]);	//B4
-			tx = startX + x2;
-			ty = (endY + startY) / 2;
 		}
 
 		//把 degree 轉換成弳度
@@ -180,8 +168,7 @@ pwlib.tools.arrow = function(app) {
 		_self.draw();
 		app.layerUpdate();
 		
-		//FIXME
-//		gui.statusShow('rectangleActive');
+		gui.statusShow('arrowActive');
 
 		return true;
 	};
@@ -200,8 +187,7 @@ pwlib.tools.arrow = function(app) {
 		mouse.buttonDown = false;
 		needsRedraw = false;
 
-		//FIXME
-//		gui.statusShow('rectangleActive');
+		gui.statusShow('arrowActive');
 
 		return true;
 	};
